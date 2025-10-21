@@ -12,41 +12,41 @@ const intlMiddleware = createMiddleware({
 });
 
 export default async function middleware(req: NextRequest) {
-  if (!process.env.HOSTING || (process.env.HOSTING && process.env.HOSTING !== 'launch')) {
-    const projectUid = process.env.CONTENTSTACK_PERSONALIZATION as string;
+  // if (!process.env.HOSTING || (process.env.HOSTING && process.env.HOSTING !== 'launch')) {
+  //   const projectUid = process.env.CONTENTSTACK_PERSONALIZATION as string;
 
-    const { variantParam, personalize } = await initializePersonalize(req, process.env.CONTENTSTACK_PERSONALIZE_EDGE_API_URL, projectUid);
+  //   const { variantParam, personalize } = await initializePersonalize(req, process.env.CONTENTSTACK_PERSONALIZE_EDGE_API_URL, projectUid);
 
-    // For non-API routes, we must rewrite the URL to support next-intl
-    if (!req.nextUrl.pathname.startsWith('/api')) {
-      const parsedUrl = new URL(req.url);
-      // parsedUrl.searchParams.set(personalize.VARIANT_QUERY_PARAM, variantParam);
-      const newReq = new NextRequest(parsedUrl.toString(), req);
-      newReq.headers.set('x-personalize-variants', variantParam || '');
-      const response = intlMiddleware(newReq);
-      personalize?.addStateToResponse(response);
-      return response;
-    }
-
-
-    // For API routes, it's more reliable to pass the variants via headers.
-    const requestHeaders = new Headers(req.headers);
-    requestHeaders.set('x-personalize-variants', variantParam || '');
-
-    const response = NextResponse.next({
-      request: {
-        headers: requestHeaders,
-      },
-    });
+  //   // For non-API routes, we must rewrite the URL to support next-intl
+  //   if (!req.nextUrl.pathname.startsWith('/api')) {
+  //     const parsedUrl = new URL(req.url);
+  //     // parsedUrl.searchParams.set(personalize.VARIANT_QUERY_PARAM, variantParam);
+  //     const newReq = new NextRequest(parsedUrl.toString(), req);
+  //     newReq.headers.set('x-personalize-variants', variantParam || '');
+  //     const response = intlMiddleware(newReq);
+  //     personalize?.addStateToResponse(response);
+  //     return response;
+  //   }
 
 
-    // add cookies to the response
-    personalize?.addStateToResponse(response);
+  //   // For API routes, it's more reliable to pass the variants via headers.
+  //   const requestHeaders = new Headers(req.headers);
+  //   requestHeaders.set('x-personalize-variants', variantParam || '');
+
+  //   const response = NextResponse.next({
+  //     request: {
+  //       headers: requestHeaders,
+  //     },
+  //   });
 
 
-    return response;
+  //   // add cookies to the response
+  //   personalize?.addStateToResponse(response);
+
+
+  //   return response;
     
-  }
+  // }
 
   if (req.nextUrl.pathname.startsWith('/api')) {
     return NextResponse.next();

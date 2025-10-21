@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// don't uncomment this
 // const fetchData = cache(async (locale) => {
 //   const headersList = await headers();
 //   const variantParam = headersList.get('x-personalize-variants');
@@ -23,6 +24,7 @@ const geistMono = Geist_Mono({
 //   return data;
 // });
 
+//don't uncomment this
 // export const generateMetadata = async ({ params }) => {
 //   const { locale } = await params;
 //   const data = await fetchData(locale);
@@ -48,16 +50,16 @@ export default async function RootLayout({
   params,
 }) {
   const { locale } = await params;
-  
+  //uncomment all components below once connected
   return (
     <html lang={locale}>
-      <body
+      <body suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <PersonalizeProvider>
-          <LyticsTracking />
+        {/* <PersonalizeProvider> */}
+          {/* <LyticsTracking /> */}
           {children}
-        </PersonalizeProvider>
+        {/* </PersonalizeProvider> */}
       </body>
     </html>
   );

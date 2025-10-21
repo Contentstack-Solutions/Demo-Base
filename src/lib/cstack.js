@@ -1,25 +1,25 @@
-import contentstack, { Region } from '@contentstack/delivery-sdk';
+import contentstack from '@contentstack/delivery-sdk';
 
-function deserializeVariantIds (variantsQueryParam) {
-  if(!variantsQueryParam) return '';
-  return variantsQueryParam
-      .split(',')
-      .map((variantPair) => `cs_personalize_${variantPair.split('=').join('_')}`)
-      .join(',')
-}
+// function deserializeVariantIds (variantsQueryParam) {
+//   if(!variantsQueryParam) return '';
+//   return variantsQueryParam
+//       .split(',')
+//       .map((variantPair) => `cs_personalize_${variantPair.split('=').join('_')}`)
+//       .join(',')
+// }
 
-const stack = contentstack.stack({
-  apiKey: process.env.CONTENTSTACK_API_KEY,  
-  deliveryToken: process.env.CONTENTSTACK_DELIVERY_TOKEN,
-  environment: process.env.CONTENTSTACK_ENVIRONMENT,
-  branch: process.env.CONTENTSTACK_BRANCH ? process.env.CONTENTSTACK_BRANCH : 'main',
-  live_preview: {
-    preview_token: process.env.CONTENTSTACK_PREVIEW_TOKEN,
-    enable: true,
-    host: "rest-preview.contentstack.com"
-  },
-  region: Region.US
-});
+// const stack = contentstack.stack({
+//   apiKey: process.env.CONTENTSTACK_API_KEY,  
+//   deliveryToken: process.env.CONTENTSTACK_DELIVERY_TOKEN,
+//   environment: process.env.CONTENTSTACK_ENVIRONMENT,
+//   branch: process.env.CONTENTSTACK_BRANCH ? process.env.CONTENTSTACK_BRANCH : 'main',
+//   live_preview: {
+//     preview_token: process.env.CONTENTSTACK_PREVIEW_TOKEN,
+//     enable: true,
+//     host: "rest-preview.contentstack.com"
+//   },
+//   region: process.env.CONTENTSTACK_REGION
+// });
 
 
 export function cslp(content, key, index){
