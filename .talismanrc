@@ -1,4 +1,4 @@
 fileignoreconfig:
 - filename: .env.sample
-  checksum: 98cfb742023ce34fa8e81ee6c7ed4824bf1f69ec412fea6ca7bfc2c18a499f55
+  checksum: 44221eb149b7a039b5095fba26f10217f3b4f43b5a01e3bdf812c8c2fcbfa66b
 version: "1.0"
