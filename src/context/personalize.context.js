@@ -31,6 +31,9 @@ export function usePersonalize() {
 
 async function getPersonalizeInstance() {
  if (!Personalize.getInitializationStatus()) {
+  if(process.env.CONTENTSTACK_PERSONALIZATION_EDGE_API_URL) {
+    Personalize.setEdgeApiUrl(process.env.CONTENTSTACK_PERSONALIZATION_EDGE_API_URL);
+  }
   sdkInstance = await Personalize.init(process.env.CONTENTSTACK_PERSONALIZATION);
  }
  return sdkInstance;
