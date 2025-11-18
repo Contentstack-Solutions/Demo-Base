@@ -4,34 +4,34 @@ import {
   useEffect,
   useState,
 } from 'react';
-
 import Footer from '@/components/footer';
 import Header from '@/components/header';
-import { ContentStackClient } from "@/lib/contentstack-client"
+import { ContentstackClient } from '../../../lib/contentstack-client';
 import { usePersonalize } from '@/context/personalize.context';
 import {
   Dialog,
   Transition,
 } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/24/outline';
+import { useParams } from 'next/navigation';
 
-export default function Page({ params }) {
+export default function Page({ }) {
     const [isLoading, setIsLoading] = useState(true);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [category, setCategory] = useState('None');
     const [entry, setEntry] = useState({});
-
+    const params = useParams();
     const personalizeSDK = usePersonalize()
 
 
     const getContent = async () => {
-        const entry = await ContentStackClient.getElementByUrl('rewards', '/rewards', params.locale);
-        setEntry(entry);
+        const entry = await ContentstackClient.getElementByUrl('rewards', '/rewards', params.locale);
+        setEntry(entry[0]);
         setIsLoading(false);
     }
 
     useEffect(() => {
-        ContentStackClient.onEntryChange(getContent);
+        ContentstackClient.onEntryChange(getContent);
     }, []);
 
     async function submit (e) {
@@ -47,6 +47,7 @@ export default function Page({ params }) {
     return (
         <div>
             <Transition.Root show={dialogOpen} as={Fragment}>
+                {console.log(entry)}
                 <Dialog className="relative z-10" onClose={setDialogOpen}>
                     <Transition.Child
                         as={Fragment}
@@ -77,9 +78,9 @@ export default function Page({ params }) {
                                             <CheckIcon className="h-6 w-6 text-green-600" aria-hidden="true" />
                                         </div>
                                         <div className="mt-3 text-center sm:mt-5">
-                                            <Dialog.Title as="p" className="text-base font-semibold leading-6 text-gray-900">{entry.submit_modal.headline}</Dialog.Title>
+                                            <Dialog.Title as="p" className="text-base font-semibold leading-6 text-gray-900">{entry?.submit_modal?.headline}</Dialog.Title>
                                             <div className="mt-2">
-                                                <p className="text-sm text-gray-500">{entry.submit_modal.body} </p>
+                                                <p className="text-sm text-gray-500">{entry?.submit_modal?.body} </p>
                                             </div>
                                         </div>
                                     </div>
@@ -89,7 +90,7 @@ export default function Page({ params }) {
                                             className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                             onClick={() => setDialogOpen(false)}
                                         >
-                                            {entry.submit_modal.button_text}
+                                            {entry?.submit_modal?.button_text}
                                         </button>
                                     </div>
                                 </Dialog.Panel>
@@ -102,19 +103,19 @@ export default function Page({ params }) {
             <Header locale={params.locale} />
             <div className="flex max-w-7xl mx-auto px-8 gap-8">
                 <div className="w-1/2">
-                    <img src={entry.image?.url} />
+                    <img src={entry?.image?.url} />
                 </div>
 
                 <div className="w-1/2 my-auto">
-                    <h1 className="text-neutral-700 uppercase">{entry.headline}</h1>
-                    <p>{entry.body}</p>
+                    <h1 className="text-neutral-700 uppercase">{entry?.headline}</h1>
+                    <p>{entry?.body}</p>
                 </div>
             </div>
 
             <div className="mt-16  max-w-7xl mx-auto px-8 font-paragraph">
                 <div className="w-full  bg-[#F0F9FF]  text-neutral-700">
-                    <p className="text-3xl pt-5 text-center font-light">{entry.form.headline}</p>
-                    <p className="text-[1.125rem] mt-5 text-center font-light">{entry.form.body}</p>
+                    <p className="text-3xl pt-5 text-center font-light">{entry?.form?.headline}</p>
+                    <p className="text-[1.125rem] mt-5 text-center font-light">{entry?.form?.body}</p>
 
                     <div className="max-w-xl mx-auto">
                         <div className="space-y-12">
@@ -122,7 +123,7 @@ export default function Page({ params }) {
 
                                 <div className="mt-10">
 
-                                    <label htmlFor="username" className="block text-sm font-light leading-6 ">{entry.form.name_label}</label>
+                                    <label htmlFor="username" className="block text-sm font-light leading-6 ">{entry?.form?.name_label}</label>
                                     <div className="mt-2">
                                         <input
                                             type="text"
@@ -132,7 +133,7 @@ export default function Page({ params }) {
                                         />
                                     </div>
 
-                                    <label htmlFor="username" className="block text-sm font-light leading-6 mt-3 ">{entry.form.email_label}</label>
+                                    <label htmlFor="username" className="block text-sm font-light leading-6 mt-3 ">{entry?.form?.email_label}</label>
                                     <div className="mt-2">
                                         <input
                                             type="email"
@@ -143,14 +144,14 @@ export default function Page({ params }) {
                                     </div>
 
                                     <div className="mt-8">
-                                        <label htmlFor="about" className="block text-sm font-light leading-6 ">{entry.form.category_label}</label>
+                                        <label htmlFor="about" className="block text-sm font-light leading-6 ">{entry?.form?.category_label}</label>
                                         <div className="mt-2">
                                             <select 
                                                 className="p-2 w-64"
                                                 value={category}
                                                 onChange={(e) => setCategory(e.target.value)}    
                                             >
-                                                {entry.form.categories?.map((category, index) => (
+                                                {entry?.form?.categories?.map((category, index) => (
                                                     <option key={index} value={category.value}>{category.text}</option>
                                                 ))}
                                             </select>

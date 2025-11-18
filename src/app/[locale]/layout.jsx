@@ -129,7 +129,8 @@ function fontPicker(fontName) {
 // METADATA (same API as before)
 // -------------------------------
 export async function generateMetadata({ params }) {
-  const locale = params.locale;
+  const parameters = await params;
+  const locale = parameters.locale
 
   const headersList = await headers();
   const variantParam = headersList.get("x-personalize-variants");
@@ -164,7 +165,8 @@ export async function generateMetadata({ params }) {
 // ROOT SSR LAYOUT (JSX VERSION)
 // -------------------------------
 export default async function RootLayout({ children, params }) {
-  const { locale } = await params;
+  const parameters = await params;
+  const locale = parameters.locale
   const config = await getConfig();
 
   const headerFont = fontPicker(config.header_font);

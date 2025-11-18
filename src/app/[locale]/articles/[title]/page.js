@@ -5,20 +5,22 @@ import Footer from "@/components/footer";
 import { ContentstackClient } from "@/lib/contentstack-client";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useDataContext } from "@/context/data.context";
 
 export default function ArticlesList({ }) {
   const [entry, setEntry] = useState({});
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const params = useParams();
+  const initialData = useDataContext();
 
   const getContent = async () => {
     const entry = await ContentstackClient.getElementByUrl(
       "article_list",
-      "/articles/" + params.title,
-      params.locale
+      `/articles/${params.title}`,
+      params.locale,
     );
-    setEntry(entry);
+    setEntry(entry[0]);
 
     if (entry?.taxonomy_category?.length > 0) {
       const articles = await ContentstackClient.getElementByTypeByTaxonomy(
@@ -40,6 +42,7 @@ export default function ArticlesList({ }) {
   return (
     <>
       <Header locale={params.locale} />
+      {console.log(entry)}
       <div className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-8xl px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">

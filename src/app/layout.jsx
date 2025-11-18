@@ -16,7 +16,8 @@ const fetchData = cache(async (locale) => {
 });
 
 export const generateMetadata = async ({ params }) => {
-  const { locale } = await params;
+  const parameters = await params;
+  const locale = parameters.locale
   const data = await fetchData(locale);
   const entry = data?.[0]?.[0];
 
@@ -39,7 +40,9 @@ export default async function RootLayout({
   children,
   params,
 }) {
-  const { locale } = await params;
+  const parameters = await params;
+  const locale = parameters.locale
+  //const locale = parameters.locale
   
   return (
     <html lang={locale}>
