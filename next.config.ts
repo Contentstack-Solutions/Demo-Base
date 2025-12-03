@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
         LYTICS_TAG: process.env.LYTICS_TAG,
         LIVE_PREVIEW_ENABLED: process.env.LIVE_PREVIEW_ENABLED,
         HOSTING: process.env.HOSTING,
+        CONTENTSTACK_AUTOMATIONS_API_URL: process.env.CONTENTSTACK_AUTOMATIONS_API_URL,
+        LYTICS_API_KEY: process.env.LYTICS_API_KEY,
+        LYTICS_COLLECTION_ID: process.env.LYTICS_COLLECTION_ID,
+        CONTENTSTACK_TERM: process.env.CONTENTSTACK_TERM,
     }
 };
 

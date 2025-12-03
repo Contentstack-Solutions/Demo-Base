@@ -31,6 +31,81 @@ export const useJstag = () => {
   return undefined;
 };
 
+export const useRecommendations = () => {
+  const jstag = useJstag();
+  const [recommendations, setRecommendations] = useState({});
+  const [cstackRecs, setCstackRecs ] = useState({});
+  const [queryRefresher, setQueryRefresher] = useState(1);
+  const [queryTrigger, setQueryTrigger] = useState(1);
+  const params = useParams();
+
+  useEffect(() => {
+    setQueryRefresher(queryRefresher + 1);
+    if((queryRefresher % 3 === 0)){
+      setQueryTrigger(queryTrigger + 1); // tracker to refresh lytics recommendation api query every 3 path changes
+    }
+  }, [params])
+
+  const fetchRecommendations = async (id) => {
+  if (process.env.LYTICS_COLLECTION_ID){try {
+    const res = await fetch(`/api/recommendations/${id}`);
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const data = await res.json();
+    //console.log("ran recommendations query")
+    setRecommendations(data);
+    console.log("recommendations from d&i api", data)
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch recommendations:", error);
+  }}
+};
+
+  async function getElementsByUrls(urls, locale, references = []) {
+    console.log("ran contentstack query")
+  const promises = urls.map((url) => {
+    return Stack.getElementByUrlWithRefs("article", `/${url?.path}`, locale, references);
+  });
+
+  try {
+    const results = await Promise.all(promises);
+    setCstackRecs(results);
+    return results; // array of entries
+  } catch (error) {
+    console.error('Error fetching one or more entries:', error);
+    throw error;
+  }
+}
+
+  useEffect(() => {
+    if (jstag) {
+      jstag.getid(function (id) {
+        console.log("setting cookie");
+        fetchRecommendations(id);
+      });
+    }
+  }, [queryTrigger]);
+  
+  useEffect(() => {
+    if (recommendations?.data){
+      const items = Object.values(recommendations.data).map(item => {
+      const urlParts = item.url.split('/');
+      const path = urlParts.slice(2).join('/'); // remove first 2 segments
+      const aspect = item?.aspects?.[0] || null;
+
+      return {
+        path,
+        aspect
+      };
+      });
+      //console.log("items", items)
+      getElementsByUrls(items, params?.locales, []);
+    }
+    
+  }, [recommendations]);
+
+  return cstackRecs
+};
+
 export const useEntity = () => {
   const jstag = useJstag();
   const [entity, setEntity] = useState(null);

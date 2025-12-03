@@ -2,6 +2,7 @@ import ContentstackServer from "@/lib/cstack";
 
 export async function POST(request) {
     try {
+        console.log("route running")
         const variantParam = request.headers.get('x-personalize-variants');
         const { type, locale, term, live_preview } = await request.json();
         const res = await ContentstackServer.getElementByTypeByTaxonomy(type, locale, term, live_preview, variantParam);

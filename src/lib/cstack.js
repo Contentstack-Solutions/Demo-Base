@@ -81,7 +81,7 @@ const ContentstackServer = {
   },
 
   getElementByUrl(type, url, locale, live_preview, variantParam) {
-   stack.livePreviewQuery(live_preview ?? {});
+  stack.livePreviewQuery(live_preview ?? {});
     return new Promise((resolve, reject) => {
       stack.contentType(type)
         .entry()
@@ -103,7 +103,8 @@ const ContentstackServer = {
           }
         );
     });
-  },
+},
+
 
   getElementByUrlWithRefs(type, url, locale, references, live_preview, variantParam) {
    stack.livePreviewQuery(live_preview ?? {});
@@ -114,7 +115,8 @@ const ContentstackServer = {
         .variants(deserializeVariantIds(variantParam))
         .includeReference(...references)
         .addParams({ "include_applied_variants": "true" })
-        .query({ "url": { $eq: url } })
+        .query({ url: url })
+        .includeReference(...references)
         .find()
         .then(
           function success(data) {
