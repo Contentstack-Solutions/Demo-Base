@@ -32,7 +32,7 @@ ContentstackLivePreview = LivePreviewModule.default;
 ContentstackLivePreview.init({
     enable: 'true',
     ssr: false,
-    mode: 'preview',
+    mode: 'builder',
     stackSdk: Stack,
     clientUrlParams: {
         protocol: "https",

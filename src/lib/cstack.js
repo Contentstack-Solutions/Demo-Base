@@ -60,9 +60,9 @@ const ContentstackServer = {
     return new Promise((resolve, reject) => {
       stack.contentType(type)
         .entry(id)
+        .includeReference(...references)
         .addParams({ "include_applied_variants": "true" })
         .variants(deserializeVariantIds(variantParam))
-        .includeReference(...references)
         .locale(locale ? locale : "en")
         .fetch()
         .then(
@@ -110,9 +110,9 @@ const ContentstackServer = {
     return new Promise((resolve, reject) => {
       stack.contentType(type)
         .entry()
+        .includeReference(...references)
         .locale(locale ? locale : "en")
         .variants(deserializeVariantIds(variantParam))
-        .includeReference(...references)
         .addParams({ "include_applied_variants": "true" })
         .query({ "url": { $eq: url } })
         .find()
