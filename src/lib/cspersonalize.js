@@ -12,7 +12,10 @@ export const initializePersonalize = async (request, CONTENTSTACK_PERSONALIZE_ED
         }
 
         if (CONTENTSTACK_PERSONALIZE_EDGE_API_URL) {
-            Personalize.setEdgeApiUrl(CONTENTSTACK_PERSONALIZE_EDGE_API_URL);
+            const url = CONTENTSTACK_PERSONALIZE_EDGE_API_URL.includes('https://') 
+                ? CONTENTSTACK_PERSONALIZE_EDGE_API_URL 
+                : `https://${CONTENTSTACK_PERSONALIZE_EDGE_API_URL}`;
+            Personalize.setEdgeApiUrl(url);
         }
 
         const personalize = await Personalize.init(CONTENTSTACK_PERSONALIZE_PROJECT_UID, {
