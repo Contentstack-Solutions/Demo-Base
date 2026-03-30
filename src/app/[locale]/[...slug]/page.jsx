@@ -7,19 +7,17 @@ import { useState, useEffect, use } from "react";
 export default function Home({ params }) {
   const { locale } = use(params);
   const initialData = useDataContext();
+  const pageUrl = use(params).slug?.length > 0 ? "/"+use(params).slug.join('/') : null;
 
   const [entry, setEntry] = useState(null);
 
   const getContent = async () => {
-    const data = await ContentstackClient.getElementByTypeWithRefs(
-      "homepage",
-      locale,
-      ['modular_blocks.unlock_adventure_section.reference',
-        'modular_blocks.unlock_adventure_section.reference.vehicles.internal_url'
-      ],
+    const data = await ContentstackClient.getElementByUrlWithRefs(
+      "landing_pages",
+      pageUrl, locale, 
+      ['modular_blocks.unlock_adventure_section.reference'],
       // initialData
-    );
-    // console.log(data);
+    )
 
     setEntry(data[0]);
   };
@@ -34,7 +32,7 @@ export default function Home({ params }) {
     <div>
        <div
         data-pageref={entry?.uid}
-        data-contenttype="homepage"
+        data-contenttype="landing_pages"
         data-locale={locale}
       >
          <div
