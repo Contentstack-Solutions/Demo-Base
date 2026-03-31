@@ -1,0 +1,57 @@
+"use client";
+import { useDataContext } from "@/context/data.context";
+import { ContentstackClient } from "@/lib/contentstack-client";
+import HeroBanner from "@/components/HeroBanner";
+import { useState, useEffect, use } from "react";
+
+export default function Home({ params }) {
+  const { locale } = use(params);
+  const initialData = useDataContext();
+  const pageUrl = use(params).slug?.length > 0 ? "/"+use(params).slug.join('/') : null;
+
+  const [entry, setEntry] = useState(null);
+
+  const getContent = async () => {
+    const data = await ContentstackClient.getElementByUrlWithRefs(
+      "landing_pages",
+      pageUrl, locale, 
+      ['hero_banner'],
+      // initialData
+    )
+
+    setEntry(data[0]);
+  };
+
+  useEffect(() => {
+    ContentstackClient.onEntryChange(() => {
+      getContent();
+    });
+  }, []);
+
+  return (
+    <div>
+       <div
+        data-pageref={entry?.uid}
+        data-contenttype="landing_pages"
+        data-locale={locale}
+      >
+      <HeroBanner
+        content={entry?.hero_banner ?? []}
+      />
+         <div
+          className={
+            entry?.modular_blocks?.length === 0
+              ? "visual-builder__empty-block-parent"
+              : ""
+          }
+          {...entry?.$?.modular_blocks}
+        >
+          {entry?.modular_blocks.map((block, index) => (
+            <div key={index} {...entry?.$?.["modular_blocks__" + index]}>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
