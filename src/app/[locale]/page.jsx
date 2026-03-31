@@ -1,6 +1,7 @@
 "use client";
 import { useDataContext } from "@/context/data.context";
 import { ContentstackClient } from "@/lib/contentstack-client";
+import HeroBanner from "@/components/HeroBanner";
 import UnlockAdventureSection from "@/components/UnlockAdventureSection";
 import { useState, useEffect, use } from "react";
 
@@ -14,7 +15,9 @@ export default function Home({ params }) {
     const data = await ContentstackClient.getElementByTypeWithRefs(
       "homepage",
       locale,
-      ['modular_blocks.unlock_adventure_section.reference',
+      [
+        'hero_carousel',
+        'modular_blocks.unlock_adventure_section.reference',
         'modular_blocks.unlock_adventure_section.reference.vehicles.internal_url'
       ],
       // initialData
@@ -37,6 +40,9 @@ export default function Home({ params }) {
         data-contenttype="homepage"
         data-locale={locale}
       >
+        <HeroBanner
+          content={entry?.hero_carousel ?? []}
+        />
          <div
           className={
             entry?.modular_blocks?.length === 0
