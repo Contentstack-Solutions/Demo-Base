@@ -44,18 +44,9 @@ export default function HeroBanner({ content = [] }) {
   };
 
   return (
-    <div className="relative w-full h-[500px] lg:h-[700px] overflow-hidden">
-      {/* Background Image */}
-      {currentSlide?.background_image?.url && (
-        <img
-          src={currentSlide.background_image.url}
-          alt="hero"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      )}
-
-      {/* Background Video (if exists) */}
-      {currentSlide?.background_video?.url && (
+    <div className="relative w-full h-[500px] lg:h-[700px] mb-[30px] overflow-hidden">
+      {/* Background media: video first, image fallback */}
+      {currentSlide?.background_video?.url ? (
         <video
           autoPlay
           muted
@@ -65,7 +56,13 @@ export default function HeroBanner({ content = [] }) {
         >
           <source src={currentSlide.background_video.url} />
         </video>
-      )}
+      ) : currentSlide?.background_image?.url ? (
+        <img
+          src={currentSlide.background_image.url}
+          alt="hero"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      ) : null}
 
       {/* Overlay (for readability like your image) */}
       {/* <div className="absolute inset-0 bg-black/30" /> */}
