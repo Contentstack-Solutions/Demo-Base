@@ -3,6 +3,7 @@ import { useDataContext } from "@/context/data.context";
 import { ContentstackClient } from "@/lib/contentstack-client";
 import UnlockAdventureSection from "@/components/UnlockAdventureSection";
 import PreviewVehicle from "@/components/PreviewVehicle";
+import HeroBanner from "@/components/HeroBanner";
 import { useState, useEffect, use } from "react";
 
 export default function Home({ params }) {
@@ -17,6 +18,7 @@ export default function Home({ params }) {
       "landing_pages",
       pageUrl, locale, 
       [
+        'hero_banner',
         'modular_blocks.unlock_adventure_section.reference',
         'modular_blocks.unlock_adventure_section.reference.vehicles.internal_url',
         'modular_blocks.preview_vehicle.vehicle_preview_reference',
@@ -25,7 +27,6 @@ export default function Home({ params }) {
       ],
       // initialData
     )
-    console.log("🚀 ~ getContent ~ data:", data)
 
     setEntry(data[0]);
   };
@@ -43,6 +44,9 @@ export default function Home({ params }) {
         data-contenttype="landing_pages"
         data-locale={locale}
       >
+      <HeroBanner
+        content={entry?.hero_banner ?? []}
+      />
          <div
           className={
             entry?.modular_blocks?.length === 0
@@ -66,3 +70,4 @@ export default function Home({ params }) {
     </div>
   );
 }
+
