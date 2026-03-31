@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --color-isuzu-red: #e30613;
+}
+
 @keyframes hero-banner-content-in {
   from {
     opacity: 0;
