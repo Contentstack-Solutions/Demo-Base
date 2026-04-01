@@ -1,4 +1,5 @@
 "use client";
+import { MdChevronRight } from "react-icons/md";
 
 function SectionBackdrop({ imageUrl, editableAttrs }) {
   if (imageUrl) {
@@ -41,7 +42,7 @@ export default function UnlockAdventureSection({ content }) {
   console.log("🚀 ~ UnlockAdventureSection ~ content:", content)
   return (
     <section
-      className="relative overflow-hidden py-10 max-w-7xl mx-auto bg-transparent"
+      className="relative overflow-hidden pt-8 pb-12 max-w-7xl lg:max-w-[96%] mx-auto bg-transparent"
       data-section="unlock-adventure"
     >
       <SectionBackdrop
@@ -52,13 +53,13 @@ export default function UnlockAdventureSection({ content }) {
       <div className="relative z-[1] mx-auto px-4 sm:px-6 lg:px-8">
         <header className="mb-4 text-center">
           <h2
-            className="mb-4 font-sans text-2xl font-bold uppercase tracking-[0.08em] text-isuzu-red sm:text-3xl md:text-4xl lg:text-[2.5rem]"
+            className="mb-2 font-riftdemi text-[40px] leading-[1.1] font-[500] uppercase text-isuzu-red lg:text-[70px] lg:leading-[1.1]"
             {...content?.$?.title || {}}
           >
             {content?.title}
           </h2>
           <p
-            className="mx-auto max-w-2xl whitespace-pre-line text-pretty font-sans text-base leading-relaxed text-neutral-800 md:text-lg"
+            className="mx-auto max-w-2xl whitespace-pre-line text-pretty font-aktiv_grotesk text-base text-neutral-800"
             {...(content?.$?.description || {})}
           >
             {content?.description}
@@ -66,7 +67,7 @@ export default function UnlockAdventureSection({ content }) {
         </header>
 
         <div
-          className="grid gap-12 md:grid-cols-2 md:gap-6 lg:gap-10"
+          className="grid sm:gap-12 grid-cols-2 md:gap-6 lg:gap-10"
           {...(content?.$?.vehicles || {})}
         >
           {vehicles.map((vehicle, index) => (
@@ -94,7 +95,7 @@ function VehicleColumn({ vehicle, content, vehicleIndex }) {
   const blockAttrs = content?.$?.[`vehicles__${vehicleIndex}`] || {};
 
   return (
-    <div className="group flex flex-col items-center" {...blockAttrs}>
+    <div className="group flex flex-col items-center justify-center" {...blockAttrs}>
       <div className="relative w-full">
         {/* Outline watermark — rendered first so it sits behind the vehicle (z-0) */}
         {outlineSrc ? (
@@ -109,14 +110,14 @@ function VehicleColumn({ vehicle, content, vehicleIndex }) {
           />
         ) : null}
 
-        <div className="relative w-full overflow-visible bg-transparent pb-1 pt-10 md:pt-12">
-          <div className="relative flex min-h-[200px] items-end justify-center sm:min-h-[240px] md:min-h-[280px]">
+        <div className="relative w-full overflow-visible bg-transparent py-2 px-4">
+          <div className={`relative flex min-h-[200px] items-end ${vehicleIndex === 0 ? 'justify-end' : 'justify-start'} sm:min-h-[240px] md:min-h-[280px]`}>
             {imageSrc ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={imageSrc}
                 alt={alt}
-                className="relative z-[1] max-h-[220px] w-auto max-w-full object-contain object-bottom drop-shadow-[0_20px_32px_rgba(0,0,0,0.18)] transition-transform duration-300 ease-out group-hover:scale-[1.02] sm:max-h-[260px] md:max-h-[300px]"
+                className="relative z-[1] max-h-[220px] w-auto max-w-full object-contain object-bottom drop-shadow-[0_20px_32px_rgba(0,0,0,0.18)] transition-transform duration-300 ease-out group-hover:scale-[1.02] lg:max-h-[260px] xl:max-h-[300px]"
                 {...(content?.$?.[`vehicles__${vehicleIndex}.vehicle_image`] ||
                   {})}
               />
@@ -128,20 +129,22 @@ function VehicleColumn({ vehicle, content, vehicleIndex }) {
                 Vehicle image
               </div>
             )}
+            
           </div>
         </div>
       </div>
 
-      <a
-        href={vehicle?.internal_url?.[0]?.url}
-        className="mt-8 inline-flex items-center gap-1 rounded-full border border-[#c21300] bg-transparent px-7 py-2.5 font-sans text-[11px] font-semibold uppercase text-neutral-800 hover:text-white transition-colors hover:bg-[#c21300] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c21300] md:text-xs"
-        
-      >
-        <span {...(content?.$?.[`vehicles__${vehicleIndex}.cta_text`] || {})}>{vehicle?.cta_text}</span>
-        <span className="translate-y-px text-sm font-normal" aria-hidden>
-          {">"}
-        </span>
-      </a>
+      <div className={`flex justify-center pt-2`}>
+            <a
+              href={vehicle?.internal_url?.[0]?.url}
+              className="flex gap-1.5 rounded-full border border-[#c21300] bg-transparent px-4 py-1 font-aktiv_grotesk text-[11px] font-semibold uppercase text-neutral-800 transition-colors hover:bg-[#c21300] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c213300] md:text-xs"
+              {...(content?.$?.[`vehicles__${vehicleIndex}.cta_text`] || content?.$?.[`vehicles__${vehicleIndex}.internal_url`] || {})}
+            >
+              <span className="font-riftdemi text-[16px] font-[500] pt-[2.5px]">{vehicle?.cta_text}</span>
+              <MdChevronRight className="text-[28px] font-thin" aria-hidden />
+            </a>
+          </div>
+     
     </div>
   );
 }
