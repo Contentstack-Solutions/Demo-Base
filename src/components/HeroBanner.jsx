@@ -76,14 +76,14 @@ export default function HeroBanner({ content = [] }) {
       >
         {/* Heading */}
         {currentSlide?.heading && (
-          <h1 className="pointer-events-auto max-w-2xl text-[45px] lg:text-[90px] leading-[41px] lg:leading-[85px] font-bold text-white">
+          <h1 className="pointer-events-auto max-w-2xl text-[45px] lg:text-[90px] leading-[41px] lg:leading-[85px] font-riftdemi text-white">
             {currentSlide?.heading}
           </h1>
         )}
 
         {/* Subheading */}
         {currentSlide?.sub_heading && (
-          <p className="pointer-events-auto mt-4 max-w-xl text-lg text-white md:text-xl">
+          <p className="pointer-events-auto mt-4 max-w-xl text-lg text-white md:text-xl font-riftdemi">
             {currentSlide.sub_heading}
           </p>
         )}
@@ -92,7 +92,7 @@ export default function HeroBanner({ content = [] }) {
         {currentSlide?.cta?.link_text && (
           <button
             type="button"
-            className={`pointer-events-auto inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#c21300] bg-[#c21300] px-6 py-3 text-[1rem] font-semibold text-white
+            className={`pointer-events-auto inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#c21300] bg-[#c21300] px-6 py-3 text-[1rem] font-riftdemi text-white
             ${isButtonOnly ? "mt-0" : "mt-6"}`}
           >
             {currentSlide.cta.link_text}

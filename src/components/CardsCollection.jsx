@@ -67,8 +67,8 @@ function CollectionCta({ cta, editableAttrs, compact = false }) {
   return (
     <a
       href={href}
-      className={`group inline-flex items-center gap-2 font-semibold uppercase tracking-[0.02em] text-neutral-900 transition-colors hover:text-[#c21300] ${
-        compact ? "shrink-0 text-[11px] md:text-sm" : "mt-6 text-lg"
+      className={`group inline-flex items-center gap-2 font-riftdemi uppercase tracking-[0.02em] text-neutral-900 transition-colors hover:text-[#c21300] ${
+        compact ? "shrink-0 text-sm md:text-lg" : "mt-6 text-lg"
       }`}
     >
       <span className="relative inline-block pb-1">
@@ -134,10 +134,10 @@ function CollectionCard({ card, gridType }) {
         <div className={isTwoByTwo ? "min-w-0 flex-1" : ""}>
           {card?.heading ? (
             <h3
-              className={`font-black uppercase leading-tight text-neutral-900 ${
+              className={`font-riftdemi uppercase leading-tight text-neutral-900 ${
                 isTwoByTwo
-                  ? `mb-2 line-clamp-2 ${card?.description ? "min-h-[48px] md:min-h-[52px]" : ""} text-[18px] md:text-[20px]`
-                  : "mb-[24px] text-[18px] md:text-[20px]"
+                  ? `mb-2 line-clamp-2 ${card?.description ? "min-h-[48px] md:min-h-[52px]" : ""} text-[20px] md:text-[30px]`
+                  : "mb-[24px] text-[19px] md:text-[21px]"
               }`}
               {...card?.$?.heading}
             >
@@ -147,7 +147,7 @@ function CollectionCard({ card, gridType }) {
 
           {card?.description ? (
             <div
-              className={`text-[14px] leading-6 text-neutral-700 ${
+              className={`text-[14px] leading-6 text-neutral-700 font-aktiv_grotesk ${
                 isTwoByTwo ? "line-clamp-2" : "mb-[24px]"
               }`}
               dangerouslySetInnerHTML={{ __html: card.description }}
@@ -202,7 +202,7 @@ export default function CardsCollection({ content }) {
       {content?.title ? (
         <header className="mb-8 text-center md:mb-10">
           <h2
-            className="text-[34px] font-bold uppercase leading-none tracking-tight text-neutral-900 md:text-[46px]"
+            className="text-[34px] font-riftdemi uppercase leading-none tracking-tight text-neutral-900 md:text-[46px]"
             {...(content?.$?.title || {})}
           >
             {content.title}
