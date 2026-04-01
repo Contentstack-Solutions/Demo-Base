@@ -21,6 +21,7 @@ export default function Home({ params }) {
       pageUrl, locale,
       [
         'hero_banner',
+        'hero_banner.cta.internal_link',
         'modular_blocks.unlock_adventure_section.reference',
         'modular_blocks.unlock_adventure_section.reference.vehicles.internal_url',
         'modular_blocks.preview_vehicle.vehicle_preview_reference',

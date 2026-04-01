@@ -19,6 +19,7 @@ export default function Home({ params }) {
       locale,
       [
         'hero_carousel',
+        'hero_carousel.cta.internal_link',
         'modular_blocks.unlock_adventure_section.reference',
         'modular_blocks.unlock_adventure_section.reference.vehicles.internal_url'
       ],
