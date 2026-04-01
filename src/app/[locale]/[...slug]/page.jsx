@@ -15,7 +15,10 @@ export default function Home({ params }) {
     const data = await ContentstackClient.getElementByUrlWithRefs(
       "landing_pages",
       pageUrl, locale, 
-      ['modular_blocks.unlock_adventure_section.reference'],
+      [
+        'modular_blocks.unlock_adventure_section.reference',
+        'modular_blocks.unlock_adventure_section.reference.vehicles.internal_url'
+      ],
       // initialData
     )
 
