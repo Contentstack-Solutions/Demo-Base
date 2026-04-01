@@ -1,54 +1,19 @@
 "use client";
-import { MdChevronRight } from "react-icons/md";
-
-function SectionBackdrop({ imageUrl, editableAttrs }) {
-  if (imageUrl) {
-    return (
-      <div
-        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
-        aria-hidden
-        {...editableAttrs}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element -- CMS asset URL */}
-        <img
-          src={imageUrl}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/35 via-white/20 to-white/45" />
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className="pointer-events-none absolute inset-x-0 top-0 h-[55%] overflow-hidden opacity-[0.12]"
-      aria-hidden
-    >
-      <svg
-        className="h-full w-full text-neutral-400"
-        viewBox="0 0 1440 320"
-        preserveAspectRatio="xMidYMax slice"
-        fill="currentColor"
-      >
-        <path d="M0 320L0 180L120 120L240 200L360 100L480 220L600 80L720 200L840 60L960 200L1080 100L1200 220L1320 140L1440 200L1440 320Z" />
-      </svg>
-    </div>
-  );
-}
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
 export default function UnlockAdventureSection({ content }) {
   const vehicles = Array.isArray(content?.vehicles) ? content.vehicles : [];
-  console.log("🚀 ~ UnlockAdventureSection ~ content:", content)
   return (
     <section
-      className="relative overflow-hidden pt-8 pb-12 max-w-7xl lg:max-w-[96%] mx-auto bg-transparent"
+      className="relative overflow-hidden pt-8 pb-12 max-w-7xl lg:max-w-[96%] mx-auto bg-[#e3e3e3]"
       data-section="unlock-adventure"
+      style={{
+        backgroundImage: `url(${content?.background_image?.url})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center top -90px',
+        backgroundRepeat: 'no-repeat',
+      }}
     >
-      <SectionBackdrop
-        imageUrl={content?.background_image?.url}
-        editableAttrs={content?.$?.background_image || {}}
-      />
 
       <div className="relative z-[1] mx-auto px-4 sm:px-6 lg:px-8">
         <header className="mb-4 text-center">
@@ -137,11 +102,11 @@ function VehicleColumn({ vehicle, content, vehicleIndex }) {
       <div className={`flex justify-center pt-2`}>
             <a
               href={vehicle?.internal_url?.[0]?.url}
-              className="flex gap-1.5 rounded-full border border-[#c21300] bg-transparent px-4 py-1 font-aktiv_grotesk text-[11px] font-semibold uppercase text-neutral-800 transition-colors hover:bg-[#c21300] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c213300] md:text-xs"
+              className="flex items-center justify-center gap-1.5 rounded-full border border-isuzu-red bg-transparent px-4 py-1 font-aktiv_grotesk text-[11px] font-semibold uppercase text-neutral-800 transition-colors hover:bg-isuzu-red hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-isuzu-red md:text-xs"
               {...(content?.$?.[`vehicles__${vehicleIndex}.cta_text`] || content?.$?.[`vehicles__${vehicleIndex}.internal_url`] || {})}
             >
-              <span className="font-riftdemi text-[16px] font-[500] pt-[2.5px]">{vehicle?.cta_text}</span>
-              <MdChevronRight className="text-[28px] font-thin" aria-hidden />
+              <span className="font-riftdemi text-[16px] font-[500] pt-[1.5px]">{vehicle?.cta_text}</span>
+              <ChevronRightIcon className="size-4 pt-[1.5px]" />
             </a>
           </div>
      

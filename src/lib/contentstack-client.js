@@ -347,6 +347,27 @@ export const ContentstackClient = {
             }
         }
         return data;
-    }
+    },
+
+    getElementByReference: async function (type, locale, referenceUids) {
+        const searchQueryParams = getSearchQueryParams();
+        if (inLivePreview() && !(searchQueryParams.live_preview || searchQueryParams.hash)) {
+            while (!Stack.live_preview?.hash) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+        }
+        let data = null;
+        const res = await fetch(`/api/contentstack/getElementByReference`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type, locale, referenceUids, live_preview: (searchQueryParams.live_preview || searchQueryParams.hash) ? searchQueryParams : (Stack.live_preview.hash) ? Stack.live_preview : null })
+        });
+        if(res.ok) {
+            data = await res.json();
+        } else {
+            data = null;
+        }
+        return data;
+    },
 
 }

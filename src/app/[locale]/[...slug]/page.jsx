@@ -2,6 +2,7 @@
 import { useDataContext } from "@/context/data.context";
 import { ContentstackClient } from "@/lib/contentstack-client";
 import UnlockAdventureSection from "@/components/UnlockAdventureSection";
+import PreviewVehicle from "@/components/PreviewVehicle";
 import { useState, useEffect, use } from "react";
 
 export default function Home({ params }) {
@@ -17,10 +18,14 @@ export default function Home({ params }) {
       pageUrl, locale, 
       [
         'modular_blocks.unlock_adventure_section.reference',
-        'modular_blocks.unlock_adventure_section.reference.vehicles.internal_url'
+        'modular_blocks.unlock_adventure_section.reference.vehicles.internal_url',
+        'modular_blocks.preview_vehicle.vehicle_preview_reference',
+        'modular_blocks.preview_vehicle.vehicle_preview_reference.vehicle_models',
+        'modular_blocks.preview_vehicle.vehicle_preview_reference.link.internal_link'
       ],
       // initialData
     )
+    console.log("🚀 ~ getContent ~ data:", data)
 
     setEntry(data[0]);
   };
@@ -50,6 +55,9 @@ export default function Home({ params }) {
             <div key={index} {...entry?.$?.["modular_blocks__" + index]}>
               {block.hasOwnProperty("unlock_adventure_section") && (
                 <UnlockAdventureSection key={index} content={block.unlock_adventure_section?.reference?.[0]} />
+              )}
+              {block.hasOwnProperty("preview_vehicle") && (
+                <PreviewVehicle key={index} content={block.preview_vehicle?.vehicle_preview_reference?.[0]} />
               )}
             </div>
           ))}
