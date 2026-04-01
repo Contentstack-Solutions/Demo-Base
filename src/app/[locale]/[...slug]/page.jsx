@@ -5,6 +5,8 @@ import UnlockAdventureSection from "@/components/UnlockAdventureSection";
 import PreviewVehicle from "@/components/PreviewVehicle";
 import HeroBanner from "@/components/HeroBanner";
 import { useState, useEffect, use } from "react";
+import TextAndImage from "@/components/TextAndImage";
+import CardsCollection from "@/components/CardsCollection";
 
 export default function Home({ params }) {
   const { locale } = use(params);
@@ -62,6 +64,18 @@ export default function Home({ params }) {
               )}
               {block.hasOwnProperty("preview_vehicle") && (
                 <PreviewVehicle key={index} content={block.preview_vehicle?.vehicle_preview_reference?.[0]} />
+              )}
+              {block.hasOwnProperty("text_and_image") && (
+                <TextAndImage
+                  key={index}
+                  content={block.text_and_image}
+                />
+              )}
+              {block.hasOwnProperty("card_collection") && (
+                <CardsCollection
+                  key={index}
+                  content={block.card_collection}
+                />
               )}
             </div>
           ))}
