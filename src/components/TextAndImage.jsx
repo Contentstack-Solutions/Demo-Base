@@ -18,7 +18,7 @@ function CtaLink({ cta, editableAttrs }) {
   return (
     <a
       href={href || "#"}
-      className="group mt-7 inline-flex items-center gap-2 text-lg font-light uppercase tracking-[0.02em] text-neutral-900 transition-colors"
+      className="group mt-7 inline-flex items-center gap-2 text-lg font-riftdemi uppercase tracking-[0.02em] text-neutral-900 transition-colors"
     >
       <span className="relative inline-block pb-1">
         <span {...editableAttrs}>{label}</span>
@@ -49,7 +49,7 @@ function TextPanel({ content, backgroundColor, className = "" }) {
       <div className="max-w-full">
         {content?.heading ? (
           <h2
-            className="text-[34px] font-black uppercase italic leading-none tracking-tight text-neutral-900 sm:text-[42px] lg:text-[50px]"
+            className="text-[34px] font-montserrat uppercase leading-none tracking-tight text-neutral-900 sm:text-[42px] lg:text-[50px]"
             {...(content?.$?.heading || {})}
           >
             {content.heading}
@@ -58,7 +58,7 @@ function TextPanel({ content, backgroundColor, className = "" }) {
 
         {content?.content ? (
           <div
-            className="mt-5 text-[14px] leading-7 text-neutral-700 sm:text-[15px]"
+            className="mt-5 text-[14px] leading-7 text-neutral-700 sm:text-[15px] font-aktiv_grotesk"
             dangerouslySetInnerHTML={{ __html: content.content }}
             {...(content?.$?.content || {})}
           />
