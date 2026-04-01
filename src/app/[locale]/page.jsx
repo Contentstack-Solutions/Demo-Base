@@ -4,6 +4,8 @@ import { ContentstackClient } from "@/lib/contentstack-client";
 import HeroBanner from "@/components/HeroBanner";
 import UnlockAdventureSection from "@/components/UnlockAdventureSection";
 import { useState, useEffect, use } from "react";
+import TextAndImage from "@/components/TextAndImage";
+import CardsCollection from "@/components/CardsCollection";
 
 export default function Home({ params }) {
   const { locale } = use(params);
@@ -55,6 +57,18 @@ export default function Home({ params }) {
             <div key={index} {...entry?.$?.["modular_blocks__" + index]}>
               {block.hasOwnProperty("unlock_adventure_section") && (
                 <UnlockAdventureSection key={index} content={block.unlock_adventure_section?.reference?.[0]} />
+              )}
+              {block.hasOwnProperty("text_and_image") && (
+                <TextAndImage
+                  key={index}
+                  content={block.text_and_image}
+                />
+              )}
+              {block.hasOwnProperty("card_collection") && (
+                <CardsCollection
+                  key={index}
+                  content={block.card_collection}
+                />
               )}
             </div>
           ))}

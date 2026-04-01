@@ -3,6 +3,8 @@ import { useDataContext } from "@/context/data.context";
 import { ContentstackClient } from "@/lib/contentstack-client";
 import HeroBanner from "@/components/HeroBanner";
 import { useState, useEffect, use } from "react";
+import TextAndImage from "@/components/TextAndImage";
+import CardsCollection from "@/components/CardsCollection";
 
 export default function Home({ params }) {
   const { locale } = use(params);
@@ -48,6 +50,18 @@ export default function Home({ params }) {
         >
           {entry?.modular_blocks.map((block, index) => (
             <div key={index} {...entry?.$?.["modular_blocks__" + index]}>
+              {block.hasOwnProperty("text_and_image") && (
+                <TextAndImage
+                  key={index}
+                  content={block.text_and_image}
+                />
+              )}
+              {block.hasOwnProperty("card_collection") && (
+                <CardsCollection
+                  key={index}
+                  content={block.card_collection}
+                />
+              )}
             </div>
           ))}
         </div>
