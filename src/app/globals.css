@@ -1,1 +1,96 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: Montserrat;
+  src: url(/fonts/68f02d7f0c95808a4553b17278e213cd.woff) format("woff2"), url(/fonts/68f02d7f0c95808a4553b17278e213cd.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: riftdemi;
+  src: url(/fonts/f4a729dac7ca5c2ee60fcccc3547954b.woff2) format("woff2"), url(/fonts/7893d414982a0e78c26139ee5b97b2de.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: aktiv_grotesk;
+  src: url(/fonts/250e8e4b496e4dc5220091e3deb9695d.woff) format("woff2"), url(/fonts/acf09532871d2823b12362210faf5b46.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+/* @font-face {
+  font-family: rift;
+  src: url(/fonts/rift/l.woff2) format("woff2"), url(fonts/rift/d.woff) format("woff"), url(fonts/rift/a) format("opentype");
+  font-display: auto;
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: normal;
+} */
+@font-face {
+  font-family: riftbold;
+  src: url(/fonts/524071a6787baf1dcac8a09b88a39672.woff2) format("woff2"), url(/fonts/cf8df83caa33a220e6abb7190465ebc3.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@theme {
+  --color-isuzu-red: #e30613;
+  --font-montserrat: Montserrat;
+  --font-riftdemi: riftdemi;
+  --font-aktiv_grotesk: aktiv_grotesk;
+  --font-rift: rift;
+  --font-riftbold: riftbold;
+}
+@keyframes hero-banner-content-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.hero-banner-content {
+  animation: hero-banner-content-in 0.50s ease-out forwards;
+}
+
+/* @keyframes cards-collection-slide-next {
+  from {
+    transform: translate3d(80px, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes cards-collection-slide-prev {
+  from {
+    transform: translate3d(-80px, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.cards-collection-slide-next {
+  animation: cards-collection-slide-next 500ms ease-in-out forwards;
+}
+
+.cards-collection-slide-prev {
+  animation: cards-collection-slide-prev 500ms ease-in-out forwards;
+} */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-banner-content {
+    animation: none;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* .cards-collection-slide-next,
+  .cards-collection-slide-prev {
+    animation: none;
+  } */
+}

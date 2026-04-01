@@ -1,8 +1,9 @@
 "use client";
 import { useDataContext } from "@/context/data.context";
 import { ContentstackClient } from "@/lib/contentstack-client";
-import HeroBanner from "@/components/HeroBanner";
 import UnlockAdventureSection from "@/components/UnlockAdventureSection";
+import PreviewVehicle from "@/components/PreviewVehicle";
+import HeroBanner from "@/components/HeroBanner";
 import { useState, useEffect, use } from "react";
 import TextAndImage from "@/components/TextAndImage";
 import CardsCollection from "@/components/CardsCollection";
@@ -10,21 +11,24 @@ import CardsCollection from "@/components/CardsCollection";
 export default function Home({ params }) {
   const { locale } = use(params);
   const initialData = useDataContext();
+  const pageUrl = use(params).slug?.length > 0 ? "/"+use(params).slug.join('/') : null;
 
   const [entry, setEntry] = useState(null);
 
   const getContent = async () => {
-    const data = await ContentstackClient.getElementByTypeWithRefs(
-      "homepage",
-      locale,
+    const data = await ContentstackClient.getElementByUrlWithRefs(
+      "landing_pages",
+      pageUrl, locale,
       [
-        'hero_carousel',
+        'hero_banner',
         'modular_blocks.unlock_adventure_section.reference',
-        'modular_blocks.unlock_adventure_section.reference.vehicles.internal_url'
+        'modular_blocks.unlock_adventure_section.reference.vehicles.internal_url',
+        'modular_blocks.preview_vehicle.vehicle_preview_reference',
+        'modular_blocks.preview_vehicle.vehicle_preview_reference.vehicle_models',
+        'modular_blocks.preview_vehicle.vehicle_preview_reference.link.internal_link'
       ],
       // initialData
-    );
-    // console.log(data);
+    )
 
     setEntry(data[0]);
   };
@@ -39,12 +43,12 @@ export default function Home({ params }) {
     <div>
        <div
         data-pageref={entry?.uid}
-        data-contenttype="homepage"
+        data-contenttype="landing_pages"
         data-locale={locale}
       >
-        <HeroBanner
-          content={entry?.hero_carousel ?? []}
-        />
+      <HeroBanner
+        content={entry?.hero_banner ?? []}
+      />
          <div
           className={
             entry?.modular_blocks?.length === 0
@@ -57,6 +61,9 @@ export default function Home({ params }) {
             <div key={index} {...entry?.$?.["modular_blocks__" + index]}>
               {block.hasOwnProperty("unlock_adventure_section") && (
                 <UnlockAdventureSection key={index} content={block.unlock_adventure_section?.reference?.[0]} />
+              )}
+              {block.hasOwnProperty("preview_vehicle") && (
+                <PreviewVehicle key={index} content={block.preview_vehicle?.vehicle_preview_reference?.[0]} />
               )}
               {block.hasOwnProperty("text_and_image") && (
                 <TextAndImage
@@ -77,3 +84,4 @@ export default function Home({ params }) {
     </div>
   );
 }
+
