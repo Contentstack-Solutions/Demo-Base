@@ -18,7 +18,7 @@ export default function Home({ params }) {
   const getContent = async () => {
     const data = await ContentstackClient.getElementByUrlWithRefs(
       "landing_pages",
-      pageUrl, locale, 
+      pageUrl, locale,
       [
         'hero_banner',
         'modular_blocks.unlock_adventure_section.reference',

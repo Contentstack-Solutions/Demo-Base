@@ -43,7 +43,7 @@ export default function PreviewVehicle({ content }) {
 
   return (
     <section
-      className="bg-white"
+      className="bg-white pb-12"
       data-section="preview-vehicle"
       {...(content?.$?.title || {})}
     >
@@ -123,7 +123,7 @@ export default function PreviewVehicle({ content }) {
 
             {/* Colour swatches — always visible when colours exist */}
             {selectedVariation?.available_colours?.length > 0 && (
-              <div className="flex flex-col items-center gap-2 pb-8">
+              <div className="flex flex-col items-center gap-2">
                 <div className="flex flex-wrap justify-center gap-3">
                   {selectedVariation.available_colours.map((entry) => {
                     const colour = entry.colour?.[0];

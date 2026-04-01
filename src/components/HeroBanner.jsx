@@ -46,7 +46,7 @@ export default function HeroBanner({ content = [] }) {
   return (
     <div className="relative w-full h-[500px] lg:h-[700px] mb-[30px] overflow-hidden">
       {/* Background media: video first, image fallback */}
-      {currentSlide?.background_video?.url ? (
+      {currentSlide?.video?.url ? (
         <video
           autoPlay
           muted
@@ -54,7 +54,7 @@ export default function HeroBanner({ content = [] }) {
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src={currentSlide.background_video.url} />
+          <source src={currentSlide.video.url} />
         </video>
       ) : currentSlide?.background_image?.url ? (
         <img
