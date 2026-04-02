@@ -1,4 +1,5 @@
 import contentstack from '@contentstack/delivery-sdk';
+import { QueryOperation } from '@contentstack/delivery-sdk';
 
 function deserializeVariantIds (variantsQueryParam) {
   if(!variantsQueryParam) return '';
@@ -278,6 +279,33 @@ const ContentstackServer = {
             reject(err);
           }
         );
+    });
+  },
+
+  getElementByReference: async function (type, locale, referenceUids, live_preview, variantParam) {
+    const query = stack.contentType('vehicle_model').entry().query().where('uid', QueryOperation.INCLUDES, referenceUids);
+    
+    stack.livePreviewQuery(live_preview ?? {});
+    
+    return new Promise((resolve, reject) => {
+      stack.contentType(type)
+      .entry()
+      .locale(locale ? locale : "en")
+      .includeReference('available_colours.colour')
+      .query().referenceIn('vehicle_model', query)
+      .find()
+      .then(
+        function success(data) {
+          resolve(data.entries);
+        },
+        function empty() {
+          resolve(null);
+        },
+        function error(err) {
+          console.error("error", err);
+          reject(err);
+        }
+      );
     });
   },
 

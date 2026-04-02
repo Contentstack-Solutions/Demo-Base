@@ -46,7 +46,7 @@ export default function HeroBanner({ content = [] }) {
   return (
     <div className="relative w-full h-[500px] lg:h-[700px] mb-[30px] overflow-hidden">
       {/* Background media: video first, image fallback */}
-      {currentSlide?.background_video?.url ? (
+      {currentSlide?.video?.url ? (
         <video
           autoPlay
           muted
@@ -54,7 +54,7 @@ export default function HeroBanner({ content = [] }) {
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source src={currentSlide.background_video.url} />
+          <source src={currentSlide.video.url} />
         </video>
       ) : currentSlide?.background_image?.url ? (
         <img
@@ -90,8 +90,9 @@ export default function HeroBanner({ content = [] }) {
 
         {/* CTA */}
         {currentSlide?.cta?.link_text && (
-          <button
-            type="button"
+          <a
+            // type="button"
+            href={currentSlide.cta.internal_link?.[0]?.url || currentSlide.cta.external_link || '#'}
             className={`pointer-events-auto inline-flex cursor-pointer items-center gap-2 rounded-full border border-[#c21300] bg-[#c21300] px-6 py-3 text-[1rem] font-riftdemi text-white
             ${isButtonOnly ? "mt-0" : "mt-6"}`}
           >
@@ -110,7 +111,7 @@ export default function HeroBanner({ content = [] }) {
             >
               <path d="M9 18l6-6-6-6" />
             </svg>
-          </button>
+          </a>
         )}
       </div>
 

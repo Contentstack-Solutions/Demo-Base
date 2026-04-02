@@ -1,6 +1,8 @@
 "use client";
 import { useDataContext } from "@/context/data.context";
 import { ContentstackClient } from "@/lib/contentstack-client";
+import UnlockAdventureSection from "@/components/UnlockAdventureSection";
+import PreviewVehicle from "@/components/PreviewVehicle";
 import HeroBanner from "@/components/HeroBanner";
 import { useState, useEffect, use } from "react";
 import TextAndImage from "@/components/TextAndImage";
@@ -16,8 +18,16 @@ export default function Home({ params }) {
   const getContent = async () => {
     const data = await ContentstackClient.getElementByUrlWithRefs(
       "landing_pages",
-      pageUrl, locale, 
-      ['hero_banner'],
+      pageUrl, locale,
+      [
+        'hero_banner',
+        'hero_banner.cta.internal_link',
+        'modular_blocks.unlock_adventure_section.reference',
+        'modular_blocks.unlock_adventure_section.reference.vehicles.internal_url',
+        'modular_blocks.preview_vehicle.vehicle_preview_reference',
+        'modular_blocks.preview_vehicle.vehicle_preview_reference.vehicle_models',
+        'modular_blocks.preview_vehicle.vehicle_preview_reference.link.internal_link'
+      ],
       // initialData
     )
 
@@ -50,6 +60,12 @@ export default function Home({ params }) {
         >
           {entry?.modular_blocks.map((block, index) => (
             <div key={index} {...entry?.$?.["modular_blocks__" + index]}>
+              {block.hasOwnProperty("unlock_adventure_section") && (
+                <UnlockAdventureSection key={index} content={block.unlock_adventure_section?.reference?.[0]} />
+              )}
+              {block.hasOwnProperty("preview_vehicle") && (
+                <PreviewVehicle key={index} content={block.preview_vehicle?.vehicle_preview_reference?.[0]} />
+              )}
               {block.hasOwnProperty("text_and_image") && (
                 <TextAndImage
                   key={index}
@@ -69,3 +85,4 @@ export default function Home({ params }) {
     </div>
   );
 }
+
