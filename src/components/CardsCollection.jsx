@@ -24,10 +24,8 @@ function getCtaData(cta) {
   if (!item) return { label: "", href: "#" };
 
   return {
-    label: item.link_text || item.title || item.text || item.label || "",
-    href:
-      item.external_link ||
-      "#",
+    label: item.link_text,
+    href: item.internal_link?.[0]?.url || item.external_link || "#",
   };
 }
 

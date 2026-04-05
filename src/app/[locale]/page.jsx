@@ -6,6 +6,8 @@ import UnlockAdventureSection from "@/components/UnlockAdventureSection";
 import { useState, useEffect, use } from "react";
 import TextAndImage from "@/components/TextAndImage";
 import CardsCollection from "@/components/CardsCollection";
+import Navbar from "@/components/Navbar";
+import BuyingTools from "@/components/BuyingTools";
 
 export default function Home({ params }) {
   const { locale } = use(params);
@@ -21,7 +23,9 @@ export default function Home({ params }) {
         'hero_carousel',
         'hero_carousel.cta.internal_link',
         'modular_blocks.unlock_adventure_section.reference',
-        'modular_blocks.unlock_adventure_section.reference.vehicles.internal_url'
+        'modular_blocks.unlock_adventure_section.reference.vehicles.internal_url',
+        'modular_blocks.buying_tools.reference',
+        'modular_blocks.buying_tools.reference.icon_list.internal_url',
       ],
       // initialData
     );
@@ -43,6 +47,7 @@ export default function Home({ params }) {
         data-contenttype="homepage"
         data-locale={locale}
       >
+        <Navbar />
         <HeroBanner
           content={entry?.hero_carousel ?? []}
         />
@@ -70,6 +75,9 @@ export default function Home({ params }) {
                   key={index}
                   content={block.card_collection}
                 />
+              )}
+               {block.hasOwnProperty("buying_tools") && (
+                <BuyingTools key={index} content={block.buying_tools?.reference?.[0]} />
               )}
             </div>
           ))}

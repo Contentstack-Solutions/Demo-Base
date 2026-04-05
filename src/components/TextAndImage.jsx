@@ -6,7 +6,7 @@ function getCtaData(cta) {
 
   return {
     label: item.link_text || "",
-    href: item.external_link|| "#",
+    href: item.internal_link?.[0]?.url || item.external_link|| "#",
   };
 }
 
@@ -40,7 +40,7 @@ function CtaLink({ cta, editableAttrs }) {
   );
 }
 
-function TextPanel({ content, backgroundColor, className = "" }) {
+function TextPanel({ content, backgroundColor, className = "", splitLayout = true }) {
   return (
     <div
       className={`relative z-1 flex h-full w-full flex-col justify-center ${className}`}
@@ -49,7 +49,7 @@ function TextPanel({ content, backgroundColor, className = "" }) {
       <div className="max-w-full">
         {content?.heading ? (
           <h2
-            className="text-[34px] font-montserrat uppercase leading-none tracking-tight text-neutral-900 sm:text-[42px] lg:text-[50px]"
+            className={`text-[34px] ${splitLayout ? "font-riftdemi" : "font-montserrat"} uppercase leading-none tracking-tight text-neutral-900 sm:text-[42px] lg:text-[50px]`}
             {...(content?.$?.heading || {})}
           >
             {content.heading}
@@ -72,6 +72,7 @@ function TextPanel({ content, backgroundColor, className = "" }) {
 
 function SplitLayout({ content, textSide, backgroundColor, imageUrl }) {
   const textFirst = textSide === "left";
+  const splitlayout = true ;
 
   return (
     <section className="mx-auto my-8 w-full max-w-[1630px] px-4 sm:px-6 lg:px-8">
@@ -89,6 +90,7 @@ function SplitLayout({ content, textSide, backgroundColor, imageUrl }) {
             content={content}
             backgroundColor={backgroundColor}
             className="items-start text-left p-[60px] lg:py-[100px] lg:px-[60px]"
+            splitLayout={splitlayout}
           />
         )}
       </div>
@@ -115,6 +117,7 @@ function ImagePanel({ imageUrl, editableAttrs }) {
 }
 
 function OverlayLayout({ content, backgroundColor, imageUrl }) {
+  const splitlayout = false ;
   return (
     <section className="mx-auto my-8 w-full max-w-[1630px] px-4 sm:px-6 lg:px-8">
       <div className="relative min-h-[340px] overflow-hidden md:min-h-[500px]">
@@ -137,6 +140,7 @@ function OverlayLayout({ content, backgroundColor, imageUrl }) {
             content={content}
             backgroundColor={backgroundColor}
             className="min-w-[40%] w-min shadow-[0_12px_30px_rgba(0,0,0,0.08)] p-[48px] lg:py-[80px] lg:px-[64px]"
+            splitLayout={splitlayout}
           />
         </div>
       </div>
