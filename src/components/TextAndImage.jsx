@@ -10,7 +10,7 @@ function getCtaData(cta) {
   };
 }
 
-function CtaLink({ cta, editableAttrs }) {
+function CtaLink({ cta, editableAttrs, textColor }) {
   const { label, href } = getCtaData(cta);
 
   if (!label) return null;
@@ -18,7 +18,8 @@ function CtaLink({ cta, editableAttrs }) {
   return (
     <a
       href={href || "#"}
-      className="group mt-7 inline-flex items-center gap-2 text-lg font-riftdemi uppercase tracking-[0.02em] text-neutral-900 transition-colors"
+      className="group mt-7 inline-flex items-center gap-2 text-lg font-riftdemi uppercase tracking-[0.02em] transition-colors"
+      style={{ color: textColor || "#ffffff" }}
     >
       <span className="relative inline-block pb-1">
         <span {...editableAttrs}>{label}</span>
@@ -40,16 +41,18 @@ function CtaLink({ cta, editableAttrs }) {
   );
 }
 
-function TextPanel({ content, backgroundColor, className = "", splitLayout = true }) {
+function TextPanel({ content, backgroundColor, textColor, className = "", splitLayout = true }) {
   return (
     <div
       className={`relative z-1 flex h-full w-full flex-col justify-center ${className}`}
       style={{ backgroundColor: backgroundColor || "#f3f3f3" }}
     >
-      <div className="max-w-full">
+      <div className="max-w-full"
+        style={{ color: textColor || "#ffffff" }}
+      >
         {content?.heading ? (
           <h2
-            className={`text-[34px] ${splitLayout ? "font-riftdemi" : "font-montserrat"} uppercase leading-none tracking-tight text-neutral-900 sm:text-[42px] lg:text-[50px]`}
+            className={`text-[34px] ${splitLayout ? "font-riftdemi" : "font-montserrat"} uppercase leading-none tracking-tight sm:text-[42px] lg:text-[50px]`}
             {...(content?.$?.heading || {})}
           >
             {content.heading}
@@ -58,19 +61,19 @@ function TextPanel({ content, backgroundColor, className = "", splitLayout = tru
 
         {content?.content ? (
           <div
-            className="mt-5 text-[14px] leading-7 text-neutral-700 sm:text-[15px] font-aktiv_grotesk"
+            className="mt-5 text-[14px] leading-7  sm:text-[15px] font-aktiv_grotesk"
             dangerouslySetInnerHTML={{ __html: content.content }}
             {...(content?.$?.content || {})}
           />
         ) : null}
 
-        <CtaLink cta={content?.cta} editableAttrs={content?.cta?.$?.link_text || {}} />
+        <CtaLink cta={content?.cta} editableAttrs={content?.cta?.$?.link_text || {}} textColor={textColor} />
       </div>
     </div>
   );
 }
 
-function SplitLayout({ content, textSide, backgroundColor, imageUrl }) {
+function SplitLayout({ content, textSide, backgroundColor, textColor, imageUrl }) {
   const textFirst = textSide === "left";
   const splitlayout = true ;
 
@@ -78,7 +81,7 @@ function SplitLayout({ content, textSide, backgroundColor, imageUrl }) {
     <section className="mx-auto my-8 w-full max-w-[1630px] px-4 sm:px-6 lg:px-8">
       <div className="grid min-h-[260px] overflow-hidden bg-white md:min-h-[360px] md:grid-cols-2">
         {textFirst ? (
-          <TextPanel content={content} backgroundColor={backgroundColor} className="p-[60px] lg:py-[100px] lg:px-[60px]" />
+          <TextPanel content={content} backgroundColor={backgroundColor} textColor={textColor} className="p-[60px] lg:py-[100px] lg:px-[60px]" />
         ) : (
           <ImagePanel imageUrl={imageUrl} editableAttrs={content?.$?.image || {}} />
         )}
@@ -89,6 +92,7 @@ function SplitLayout({ content, textSide, backgroundColor, imageUrl }) {
           <TextPanel
             content={content}
             backgroundColor={backgroundColor}
+            textColor={textColor}
             className="items-start text-left p-[60px] lg:py-[100px] lg:px-[60px]"
             splitLayout={splitlayout}
           />
@@ -116,7 +120,7 @@ function ImagePanel({ imageUrl, editableAttrs }) {
   );
 }
 
-function OverlayLayout({ content, backgroundColor, imageUrl }) {
+function OverlayLayout({ content, backgroundColor, textColor, imageUrl }) {
   const splitlayout = false ;
   return (
     <section className="mx-auto my-8 w-full max-w-[1630px] px-4 sm:px-6 lg:px-8">
@@ -139,6 +143,7 @@ function OverlayLayout({ content, backgroundColor, imageUrl }) {
           <TextPanel
             content={content}
             backgroundColor={backgroundColor}
+            textColor={textColor}
             className="min-w-[40%] w-min shadow-[0_12px_30px_rgba(0,0,0,0.08)] p-[48px] lg:py-[80px] lg:px-[64px]"
             splitLayout={splitlayout}
           />
@@ -159,6 +164,7 @@ export default function TextAndImage({ content }) {
     .toLowerCase();
   const textSide = textAlignValue === "right" ? "right" : "left";
   const backgroundColor = content?.background_color?.hex;
+  const textColor = content?.text_color?.hex;
   const imageUrl = content?.image?.url || "";
 
   if (layout === "overlay") {
@@ -166,6 +172,7 @@ export default function TextAndImage({ content }) {
       <OverlayLayout
         content={content}
         backgroundColor={backgroundColor}
+        textColor={textColor}
         imageUrl={imageUrl}
       />
     );
@@ -176,6 +183,7 @@ export default function TextAndImage({ content }) {
       content={content}
       textSide={textSide}
       backgroundColor={backgroundColor}
+      textColor={textColor}
       imageUrl={imageUrl}
     />
   );
