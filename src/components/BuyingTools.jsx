@@ -56,6 +56,7 @@ function BuyingToolItem({ item, index, count, barLayout, content, groupUid, full
             src={iconUrl}
             alt=""
             className="max-h-full max-w-full object-contain"
+            {...item?.$?.icon}
           />
         ) : (
           <span
@@ -69,7 +70,7 @@ function BuyingToolItem({ item, index, count, barLayout, content, groupUid, full
       {label ? (
         <div className="flex w-full flex-col items-center">
           <span className="relative inline-block max-w-[140px] pb-1 text-center font-riftdemi text-lg uppercase leading-tight tracking-[0.08em] text-neutral-900 sm:max-w-none">
-            <span >{label}</span>
+            <span {...item?.$?.text}>{label}</span>
             <span
               className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-isuzu-red transition-transform duration-300 ease-out group-hover:scale-x-100 group-focus-within:scale-x-100"
               aria-hidden

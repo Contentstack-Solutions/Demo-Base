@@ -149,7 +149,7 @@ export default function SecondaryNavBar({ sub, slugParam, pathname }) {
               strokeLinejoin="round"
             />
           </svg>
-          <span className="min-w-0 flex-1 truncate">{collapsedLabel}</span>
+          <span className="min-w-0 flex-1 truncate" {...(activeLink?.$?.link_text || {})}>{collapsedLabel}</span>
         </button>
         {mobileExpanded ? (
           <div
@@ -168,7 +168,7 @@ export default function SecondaryNavBar({ sub, slugParam, pathname }) {
                       className={`block w-fit ${secondaryNavLinkClass(active)}`}
                       onClick={() => setMobileExpanded(false)}
                     >
-                      {link?.link_text}
+                      <span {...(link?.$?.link_text || {})}>{link?.link_text}</span>
                     </NavAnchor>
                   </li>
                 );
@@ -181,7 +181,7 @@ export default function SecondaryNavBar({ sub, slugParam, pathname }) {
                   className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-isuzu-red px-5 py-2.5 font-riftdemi text-[15px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-red-700"
                   onClick={() => setMobileExpanded(false)}
                 >
-                  {cta.text}
+                  <span {...(cta?.$?.link_text || {})}>{cta.text}</span>
                   <svg
                     className="h-3.5 w-3.5 shrink-0 text-white"
                     viewBox="0 0 8 12"
@@ -205,7 +205,7 @@ export default function SecondaryNavBar({ sub, slugParam, pathname }) {
 
       {/* lg+: logo, full link row, CTA */}
       <div className="mx-auto hidden max-w-[1630px] flex-wrap items-center gap-x-4 gap-y-3 px-4 py-3 sm:gap-x-6 sm:px-6 lg:flex lg:flex-nowrap lg:px-8 lg:py-3.5">
-        <div className="flex shrink-0 items-center lg:w-[min(100%,200px)]">
+        <a className="flex shrink-0 items-center lg:w-[min(100%,200px)]" href={flatLinks[0]?.internal_link?.[0]?.url || "#"}>
           {logoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -215,7 +215,7 @@ export default function SecondaryNavBar({ sub, slugParam, pathname }) {
               {...logoLive}
             />
           ) : null}
-        </div>
+        </a>
         <ul className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2 sm:gap-x-5 lg:gap-x-6">
           {flatLinks.map((link, idx) => {
             const href =
@@ -227,7 +227,7 @@ export default function SecondaryNavBar({ sub, slugParam, pathname }) {
                   link={href}
                   className={secondaryNavLinkClass(active)}
                 >
-                  {link?.link_text}
+                  <span {...(link?.$?.link_text || {})}>{link?.link_text}</span>
                 </NavAnchor>
               </li>
             );
@@ -239,7 +239,7 @@ export default function SecondaryNavBar({ sub, slugParam, pathname }) {
               link={cta.internal_link?.[0]?.url || "#"}
               className="inline-flex items-center gap-2 rounded-full bg-isuzu-red px-5 py-2.5 font-riftdemi text-[15px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-red-700"
             >
-              {cta.text}
+              <span {...(cta?.$?.link_text || {})}>{cta.text}</span>
               <svg
                 className="h-3.5 w-3.5 shrink-0 text-white"
                 viewBox="0 0 8 12"

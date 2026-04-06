@@ -163,7 +163,7 @@ export default function HeroBanner({ content = [] }) {
 
       {/* Dots Navigation (ONLY if more than 1 slide) */}
       {totalSlides > 1 && (
-        <div className="absolute bottom-0 mt-[55px] mb-[55px] ml-[10%] mr-[10%] h-[20px] w-[80%] overflow-hidden z-20 flex items-center justify-center gap-3">
+        <div className="absolute bottom-0 mt-[55px] mb-[55px] ml-[10%] mr-[10%] h-[23px] w-[80%] overflow-hidden z-20 flex items-center justify-center gap-3">
           {content.map((_, index) => (
             <button
               key={index}

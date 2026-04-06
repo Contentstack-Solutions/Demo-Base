@@ -38,7 +38,7 @@ function CarouselArrow({ direction, onClick }) {
       aria-label={isPrev ? "Previous cards" : "Next cards"}
       onClick={onClick}
       className={`absolute top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-neutral-200/95 text-white transition hover:bg-neutral-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 ${
-        isPrev ? "left-0" : "right-0"
+        isPrev ? "left-[-23px]" : "right-[-23px]"
       }`}
     >
       <svg
@@ -71,7 +71,7 @@ function CollectionCta({ cta, editableAttrs, compact = false }) {
     >
       <span className="relative inline-block pb-1">
         <span {...editableAttrs}>{label}</span>
-        <span className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100" />
+        <span className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-[#c21300] transition-transform duration-300 ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100" />
       </span>
       <svg
         className="h-6 w-6 shrink-0 text-[#c21300]"
@@ -95,7 +95,7 @@ function CollectionCard({ card, gridType }) {
   const isTwoByTwo = gridType === "2x2";
   return (
     <article
-      className="flex h-full flex-col overflow-hidden bg-white"
+      className="group flex h-full flex-col overflow-hidden bg-white hover:bg-black/10"
     >
       <div
         className={`relative w-full overflow-hidden bg-neutral-200 ${

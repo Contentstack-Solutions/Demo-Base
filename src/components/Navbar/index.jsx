@@ -188,6 +188,7 @@ function SubNavMegaItem({ item, locale, count, plainMobile, onMegaLinkClick }) {
           src={iconUrl}
           alt=""
           className="mt-1 h-10 w-10 shrink-0 object-contain opacity-60"
+          {...(item?.$?.icon || {})}
         />
       ) : null}
       <div
@@ -195,7 +196,7 @@ function SubNavMegaItem({ item, locale, count, plainMobile, onMegaLinkClick }) {
           centerTextOnlyColumn ? "min-w-0 shrink-0" : "min-w-0 flex-1"
         }
       >
-        {title ? <h3 className={titleClass}>{title}</h3> : null}
+        {title ? <h3 className={titleClass} {...(item?.$?.title || {})}>{title}</h3> : null}
         <ul
           className={
             plainMobile
@@ -210,7 +211,7 @@ function SubNavMegaItem({ item, locale, count, plainMobile, onMegaLinkClick }) {
                 className={`group inline-block w-fit max-w-full ${linkClass}`}
                 onClick={() => onMegaLinkClick?.()}
               >
-                <span className="relative inline-block pb-1">
+                <span className="relative inline-block pb-1" {...(link?.$?.link_text || {})}>
                   {link?.link_text}
                   <span
                     className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-isuzu-red transition-transform duration-500 ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
@@ -280,11 +281,12 @@ function SubNavMegaItem({ item, locale, count, plainMobile, onMegaLinkClick }) {
                     alt=""
                     className="h-8 w-8 shrink-0 object-contain opacity-80 group-hover:opacity-100"
                     style={{ filter: "none" }}
+                    {...(tile?.$?.icon || {})}
                   />
                 ) : (
                   <span className="h-8 w-8 shrink-0 rounded border border-isuzu-red"/>
                 )}
-                <span className="relative inline-block min-w-0 pb-1 font-riftdemi text-[16px] uppercase leading-tight tracking-wide md:text-[18px]">
+                <span className="relative inline-block min-w-0 pb-1 font-riftdemi text-[16px] uppercase leading-tight tracking-wide md:text-[18px]" {...(tile?.$?.text || {})}>
                   {label}
                   <span
                     className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-isuzu-red transition-transform duration-500 ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
@@ -509,9 +511,8 @@ export default function Navbar({ navigation }) {
                   <NavAnchor
                     link={topHref}
                     className="flex items-center gap-1 border-b-2 border-transparent pb-0.5 font-riftdemi text-[16px] uppercase tracking-wide text-neutral-900 transition-colors hover:text-neutral-600"
-                    {...(item?.$?.title || {})}
                   >
-                    {title}
+                    <span {...(item?.$?.title || {})}>{title}</span>
                   </NavAnchor>
                 )}
               </li>
@@ -538,7 +539,7 @@ export default function Navbar({ navigation }) {
               />
               <circle cx="12" cy="11" r="2.5" stroke="currentColor" strokeWidth="1.5" />
             </svg>
-            <span className="max-w-36 truncate sm:max-w-none">{ctaLabel}</span>
+            <span className="max-w-36 truncate sm:max-w-none" {...ctaItem?.$?.link_text}>{ctaLabel}</span>
           </NavAnchor>
           <button
             type="button"
@@ -655,9 +656,8 @@ export default function Navbar({ navigation }) {
                       link={topHref}
                       className="flex w-full items-center px-4 py-4 font-riftdemi text-sm uppercase tracking-wide text-neutral-900 transition-colors hover:bg-neutral-50 sm:px-6 sm:text-base"
                       onClick={() => closeMenus()}
-                      {...(item?.$?.title || {})}
                     >
-                      {title}
+                      <span {...(item?.$?.title || {})}>{title}</span>
                     </NavAnchor>
                   )}
                 </li>
