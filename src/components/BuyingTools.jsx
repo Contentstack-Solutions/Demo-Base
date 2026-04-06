@@ -15,11 +15,6 @@ function isFullWidthFlag(value) {
   return false;
 }
 
-function resolveBackgroundHex(content) {
-  const raw = content?.background_color?.hex;
-  return raw || "#eee";
-}
-
 function BuyingToolItem({ item, index, count, barLayout, content, groupUid, fullWidth }) {
   const href = getToolHref(item);
   const iconUrl = item?.icon?.url || "";
@@ -95,7 +90,7 @@ export default function BuyingTools({ content }) {
   const fullWidth = isFullWidthFlag(
     content?.full_width ?? content?.fullWidth,
   );
-  const backgroundColor = resolveBackgroundHex(content);
+  const bgColor = content?.backgound_color?.hex
 
   if (list.length === 0) return null;
 
@@ -106,7 +101,7 @@ export default function BuyingTools({ content }) {
     >
       <div
         className={`mx-auto w-full ${fullWidth ? "max-w-full py-10 sm:py-12 md:py-14" : "max-w-[1200px]"}`}
-        style={{ backgroundColor }}
+        style={{ backgroundColor: bgColor }}
       >
         {fullWidth && content?.title ? (
           <header className="mb-8 text-center md:mb-10">
