@@ -21,8 +21,8 @@ export const generateMetadata = async ({ params }) => {
     title: entry?.seo?.title,
     description: entry?.seo?.description,
     robots: {
-      index: entry?.seo?.no_index || false,
-      follow: entry?.seo?.no_follow || false,
+      index: false,
+      follow: false,
     },
     openGraph: {
       title: entry?.seo?.og_meta_tags?.title,
