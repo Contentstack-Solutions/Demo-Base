@@ -11,7 +11,7 @@ const intlMiddleware = createMiddleware({
   //localeDetection: false
 });
 
-export default async function middleware(req: NextRequest) {
+export default async function proxy(req: NextRequest) {
   if (!process.env.HOSTING || (process.env.HOSTING && process.env.HOSTING !== 'launch')) {
     const projectUid = process.env.CONTENTSTACK_PERSONALIZATION as string;
 

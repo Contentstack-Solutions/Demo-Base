@@ -1,16 +1,13 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import { defineConfig } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+// Next.js 16: eslint-config-next ships native flat configs (no FlatCompat).
+// Keep the ignore list below as a plain object entry (not globalIgnores()):
+// the Stackables generator adds its vendored paths to that array.
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
   {
     ignores: [
       "node_modules/**",
@@ -20,6 +17,6 @@ const eslintConfig = [
       "next-env.d.ts",
     ],
   },
-];
+]);
 
 export default eslintConfig;
